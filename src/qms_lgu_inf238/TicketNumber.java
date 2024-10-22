@@ -8,9 +8,7 @@ package qms_lgu_inf238;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Queue;
-import javax.swing.*;
 import java.util.LinkedList;
-import java.util.TimerTask;
 import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 
@@ -21,15 +19,12 @@ public class TicketNumber extends javax.swing.JFrame {
     public static Queue <Integer> counter1Queue = new LinkedList<>();
     public static Queue <Integer> counter2Queue = new LinkedList<>();
     public static Queue <Integer> counter3Queue = new LinkedList<>();
-    public static Queue <Integer> counter4Queue = new LinkedList<>();
     public static Queue <Integer> counter5Queue = new LinkedList<>();
     public static Queue <Integer> counter6Queue = new LinkedList<>();
     public static Queue <Integer> counter7Queue = new LinkedList<>();
     public static Queue <Integer> counter8Queue = new LinkedList<>();
     
-    public static int counter1Basis = 0;
-    public static int counter2Basis = 0;
-    public static int counter3Basis = 0;
+  
     
     
     
@@ -42,29 +37,24 @@ public class TicketNumber extends javax.swing.JFrame {
         Counter3TicketNumberField.setHorizontalAlignment(Counter1TicketNumberField.CENTER);
         
         //Ticket Number Generation
-        
-          if(Customer.invokeBasis == 0){
-         
-         Counter1TicketNumberField.setText("A-"+counter1Queue.poll().toString());
-         Counter1.counter1Data.add(Counter1TicketNumberField.getText()); 
-         Counter2TicketNumberField.setVisible(false);
-         Counter3TicketNumberField.setVisible(false);
-            String ticketNumbers = Counter1TicketNumberField.getText();
-            Object[]row = {ticketNumbers};
-            DefaultTableModel model = (DefaultTableModel)Counter1.WaitingTable.getModel();
-       
-            model.addRow(row);
-       
-          }else if(Customer.invokeBasis == 1){
-         
-         Counter1TicketNumberField.setVisible(false);
-         Counter2TicketNumberField.setText("B-" + counter2Queue.poll().toString());
-         Counter3TicketNumberField.setVisible(false);
-          }else if(Customer.invokeBasis == 3){
-         Counter1TicketNumberField.setVisible(false);
-         Counter3TicketNumberField.setText("C-" + counter3Queue.poll().toString());
-         Counter2TicketNumberField.setVisible(false);
-          }
+        switch (Customer.invokeBasis) {
+            case 0:
+                {
+                    Counter1TicketNumberField.setText("A-"+counter1Queue.peek().toString());
+                    Counter1.counter1Data.add(Counter1TicketNumberField.getText());
+                    String ticketNumbers = Counter1TicketNumberField.getText();
+                    Object[]row = {ticketNumbers};
+                    DefaultTableModel model = (DefaultTableModel)Counter1.WaitingTable.getModel();
+                    model.addRow(row);
+                    counter1Queue.poll();
+                    Counter2TicketNumberField.setVisible(false);
+                    Counter3TicketNumberField.setVisible(false);
+                    break;
+                }
+           
+            default:
+                break;
+        }
           
           
          Timer timer = new Timer(3000, new ActionListener() {
@@ -74,8 +64,7 @@ public class TicketNumber extends javax.swing.JFrame {
             }
         });
 
-        // Start the timer
-        timer.setRepeats(false); // Execute only once
+        timer.setRepeats(false); 
         timer.start();
          
       
@@ -98,13 +87,14 @@ public class TicketNumber extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        counter1_2Panel.setBackground(new java.awt.Color(0, 204, 204));
+        counter1_2Panel.setBackground(new java.awt.Color(3, 4, 94));
         counter1_2Panel.setLayout(null);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("          Your Ticket Number!");
         counter1_2Panel.add(jLabel1);
-        jLabel1.setBounds(34, 28, 397, 74);
+        jLabel1.setBounds(-40, 30, 510, 74);
 
         Counter1TicketNumberField.setEditable(false);
         Counter1TicketNumberField.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N

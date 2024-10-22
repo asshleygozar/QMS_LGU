@@ -6,11 +6,7 @@
 package qms_lgu_inf238;
 
 import java.awt.Component;
-import java.util.Queue;
-import java.util.LinkedList;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
+
 
 /**
  *
@@ -24,19 +20,35 @@ public class Customer extends javax.swing.JFrame {
     public static int counter3Basis = 1;
     
     public static int invokeBasis = 0;
+    public static String requestCopy = "Request Copy";
+    public static String amendment = "Amendment";
+    public static String birthCert = "Birth Certificate";
+    public static String deathCert = "Death Certificate";
+    public static String marriageCert = "Marriage Certificate";
+    public static String cenomarCert = "CENOMAR";
     
     
     public Customer() {
         initComponents();
         
         //To hide documentPanel all elements while transaction panel is active
-        Component[] components1 = documentPanel.getComponents();
+        Component[] components1 = documentCopyPanel.getComponents();
          for (Component component : components1) {
             component.setVisible(false);
         }
+         Component[] components2 = amendmentPanel.getComponents();
+         for (Component component2 : components2) {
+            component2.setVisible(false);
+        }
          
+        amendmentPanel.setVisible(false);
+        documentCopyPanel.setVisible(false);
          new Counter1().setVisible(true);
-
+         new Counter2().setVisible(true);
+         new Counter7().setVisible(true);
+         new Counter8().setVisible(true);
+         new ScreenNumbers().setVisible(true);
+         new Analytics().setVisible(true);
          
     }
 
@@ -53,17 +65,27 @@ public class Customer extends javax.swing.JFrame {
         amendmentsButton = new javax.swing.JButton();
         getCopyButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        documentPanel = new javax.swing.JPanel();
+        documentCopyPanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         birthCertButton = new javax.swing.JButton();
         deathCertButton = new javax.swing.JButton();
         marriageCertButton = new javax.swing.JButton();
         cenomarCertButton = new javax.swing.JButton();
         backButton = new javax.swing.JButton();
+        amendmentPanel = new javax.swing.JPanel();
+        correctionLabel = new javax.swing.JLabel();
+        birthAmendmentButton = new javax.swing.JButton();
+        deathAmendmentButton = new javax.swing.JButton();
+        marriageAmendmentButton = new javax.swing.JButton();
+        cenomarAmendmentButton = new javax.swing.JButton();
+        backButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        transactionPanel.setBackground(new java.awt.Color(3, 4, 94));
+
+        amendmentsButton.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         amendmentsButton.setText("Amendments");
         amendmentsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -71,6 +93,7 @@ public class Customer extends javax.swing.JFrame {
             }
         });
 
+        getCopyButton.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         getCopyButton.setText("Request Copy");
         getCopyButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -78,7 +101,9 @@ public class Customer extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Choose Type of Transaction");
 
         javax.swing.GroupLayout transactionPanelLayout = new javax.swing.GroupLayout(transactionPanel);
@@ -86,35 +111,36 @@ public class Customer extends javax.swing.JFrame {
         transactionPanelLayout.setHorizontalGroup(
             transactionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(transactionPanelLayout.createSequentialGroup()
-                .addGap(49, 49, 49)
-                .addComponent(getCopyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(amendmentsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(74, 74, 74))
-            .addGroup(transactionPanelLayout.createSequentialGroup()
                 .addGap(58, 58, 58)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 525, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addGroup(transactionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(transactionPanelLayout.createSequentialGroup()
+                        .addComponent(getCopyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(amendmentsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(79, 79, 79))
+                    .addGroup(transactionPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 525, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(37, Short.MAX_VALUE))))
         );
         transactionPanelLayout.setVerticalGroup(
             transactionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(transactionPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44)
+                .addGap(36, 36, 36)
                 .addGroup(transactionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(getCopyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(amendmentsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(160, Short.MAX_VALUE))
+                    .addComponent(amendmentsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(getCopyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(168, Short.MAX_VALUE))
         );
 
         getContentPane().add(transactionPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 620, 500));
 
-        documentPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        documentCopyPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel2.setText("Choose Type of Document");
-        documentPanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 16, 512, 84));
+        documentCopyPanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 16, 512, 84));
 
         birthCertButton.setText("Birth Certificate");
         birthCertButton.addActionListener(new java.awt.event.ActionListener() {
@@ -122,7 +148,7 @@ public class Customer extends javax.swing.JFrame {
                 birthCertButtonActionPerformed(evt);
             }
         });
-        documentPanel.add(birthCertButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 131, 181, 119));
+        documentCopyPanel.add(birthCertButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 131, 181, 119));
 
         deathCertButton.setText("Death Certficate");
         deathCertButton.addActionListener(new java.awt.event.ActionListener() {
@@ -130,7 +156,7 @@ public class Customer extends javax.swing.JFrame {
                 deathCertButtonActionPerformed(evt);
             }
         });
-        documentPanel.add(deathCertButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(358, 131, 183, 119));
+        documentCopyPanel.add(deathCertButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(358, 131, 183, 119));
 
         marriageCertButton.setText("Marriage Certificate");
         marriageCertButton.addActionListener(new java.awt.event.ActionListener() {
@@ -138,7 +164,7 @@ public class Customer extends javax.swing.JFrame {
                 marriageCertButtonActionPerformed(evt);
             }
         });
-        documentPanel.add(marriageCertButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 300, 181, 119));
+        documentCopyPanel.add(marriageCertButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 300, 181, 119));
 
         cenomarCertButton.setText("CENOMAR Certificate");
         cenomarCertButton.addActionListener(new java.awt.event.ActionListener() {
@@ -146,7 +172,7 @@ public class Customer extends javax.swing.JFrame {
                 cenomarCertButtonActionPerformed(evt);
             }
         });
-        documentPanel.add(cenomarCertButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(358, 300, 200, 119));
+        documentCopyPanel.add(cenomarCertButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(358, 300, 200, 119));
 
         backButton.setText("Back");
         backButton.addActionListener(new java.awt.event.ActionListener() {
@@ -154,31 +180,120 @@ public class Customer extends javax.swing.JFrame {
                 backButtonActionPerformed(evt);
             }
         });
-        documentPanel.add(backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(218, 437, 146, 49));
+        documentCopyPanel.add(backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(218, 437, 146, 49));
 
-        getContentPane().add(documentPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 620, -1));
+        getContentPane().add(documentCopyPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 620, -1));
+
+        correctionLabel.setFont(new java.awt.Font("Tahoma", 3, 36)); // NOI18N
+        correctionLabel.setText("Correction of Certificate");
+
+        birthAmendmentButton.setText("Birth Certificate");
+        birthAmendmentButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                birthAmendmentButtonActionPerformed(evt);
+            }
+        });
+
+        deathAmendmentButton.setText("Death Certificate");
+        deathAmendmentButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deathAmendmentButtonActionPerformed(evt);
+            }
+        });
+
+        marriageAmendmentButton.setText("Marriage Certificate");
+        marriageAmendmentButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                marriageAmendmentButtonActionPerformed(evt);
+            }
+        });
+
+        cenomarAmendmentButton.setText("CENOMAR Certificate");
+        cenomarAmendmentButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cenomarAmendmentButtonActionPerformed(evt);
+            }
+        });
+
+        backButton2.setText("Back");
+        backButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButton2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout amendmentPanelLayout = new javax.swing.GroupLayout(amendmentPanel);
+        amendmentPanel.setLayout(amendmentPanelLayout);
+        amendmentPanelLayout.setHorizontalGroup(
+            amendmentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, amendmentPanelLayout.createSequentialGroup()
+                .addContainerGap(81, Short.MAX_VALUE)
+                .addComponent(correctionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(70, 70, 70))
+            .addGroup(amendmentPanelLayout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addGroup(amendmentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(birthAmendmentButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(marriageAmendmentButton, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(amendmentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cenomarAmendmentButton, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+                    .addComponent(deathAmendmentButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(44, 44, 44))
+            .addGroup(amendmentPanelLayout.createSequentialGroup()
+                .addGap(207, 207, 207)
+                .addComponent(backButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        amendmentPanelLayout.setVerticalGroup(
+            amendmentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(amendmentPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(correctionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(amendmentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(deathAmendmentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(birthAmendmentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
+                .addGroup(amendmentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(marriageAmendmentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cenomarAmendmentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(backButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(amendmentPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 620, -1));
 
         setSize(new java.awt.Dimension(642, 556));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void amendmentsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_amendmentsButtonActionPerformed
-       Component[] components = transactionPanel.getComponents();
+     
+        Component[] components = transactionPanel.getComponents();
         for (Component component : components) {
             component.setVisible(false);
         }
         transactionPanel.setVisible(false);
+        documentCopyPanel.setVisible(false);
+        amendmentPanel.setVisible(true);
+        //HashSet<String> hashSet = new HashSet<String>();
         
-        documentPanel.setVisible(true);
-        Component[] components1 = documentPanel.getComponents();
+        Component[] components1 = documentCopyPanel.getComponents();
          for (Component component : components1) {
+            component.setVisible(false);
+        }
+         
+         Component[] components2 = amendmentPanel.getComponents();
+         for (Component component : components2) {
             component.setVisible(true);
         }
     }//GEN-LAST:event_amendmentsButtonActionPerformed
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
-        documentPanel.setVisible(false);
-        Component[] components1 = documentPanel.getComponents();
+        documentCopyPanel.setVisible(false);
+        Component[] components1 = documentCopyPanel.getComponents();
          for (Component component : components1) {
             component.setVisible(false);
         }
@@ -198,8 +313,8 @@ public class Customer extends javax.swing.JFrame {
         }
         transactionPanel.setVisible(false);
         
-        documentPanel.setVisible(true);
-        Component[] components1 = documentPanel.getComponents();
+        documentCopyPanel.setVisible(true);
+        Component[] components1 = documentCopyPanel.getComponents();
          for (Component component : components1) {
             component.setVisible(true);
         }
@@ -208,6 +323,8 @@ public class Customer extends javax.swing.JFrame {
 
     private void birthCertButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_birthCertButtonActionPerformed
       TicketNumber.counter1Queue.add(counter1Basis);
+      Counter1.transactionData.add(requestCopy);
+      Counter1.certificateData.add(birthCert);
       counter1Basis++;
       invokeBasis = 0;
       //this.setVisible(false);
@@ -218,8 +335,8 @@ public class Customer extends javax.swing.JFrame {
         }
         transactionPanel.setVisible(true);
         
-        documentPanel.setVisible(false);
-        Component[] components1 = documentPanel.getComponents();
+        documentCopyPanel.setVisible(false);
+        Component[] components1 = documentCopyPanel.getComponents();
          for (Component component : components1) {
             component.setVisible(false);
         }
@@ -229,6 +346,8 @@ public class Customer extends javax.swing.JFrame {
 
     private void deathCertButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deathCertButtonActionPerformed
       TicketNumber.counter1Queue.add(counter1Basis);
+      Counter1.transactionData.add(requestCopy);
+      Counter1.certificateData.add(deathCert);
       counter1Basis++;
       invokeBasis = 0;
       //this.setVisible(false);
@@ -240,8 +359,8 @@ public class Customer extends javax.swing.JFrame {
         }
         transactionPanel.setVisible(true);
         
-        documentPanel.setVisible(false);
-        Component[] components1 = documentPanel.getComponents();
+        documentCopyPanel.setVisible(false);
+        Component[] components1 = documentCopyPanel.getComponents();
          for (Component component : components1) {
             component.setVisible(false);
         }
@@ -249,9 +368,11 @@ public class Customer extends javax.swing.JFrame {
     }//GEN-LAST:event_deathCertButtonActionPerformed
 
     private void marriageCertButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_marriageCertButtonActionPerformed
-      TicketNumber.counter2Queue.add(counter2Basis);
-      counter2Basis++;
-      invokeBasis = 1;
+      TicketNumber.counter1Queue.add(counter1Basis);
+      Counter1.transactionData.add(requestCopy);
+      Counter1.certificateData.add(marriageCert);
+      counter1Basis++;
+      invokeBasis = 0;
       //this.setVisible(false);
       new TicketNumber().setVisible(true);
        Component[] components = transactionPanel.getComponents();
@@ -260,8 +381,8 @@ public class Customer extends javax.swing.JFrame {
         }
         transactionPanel.setVisible(true);
         
-        documentPanel.setVisible(false);
-        Component[] components1 = documentPanel.getComponents();
+        documentCopyPanel.setVisible(false);
+        Component[] components1 = documentCopyPanel.getComponents();
          for (Component component : components1) {
             component.setVisible(false);
         }
@@ -269,9 +390,11 @@ public class Customer extends javax.swing.JFrame {
     }//GEN-LAST:event_marriageCertButtonActionPerformed
 
     private void cenomarCertButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cenomarCertButtonActionPerformed
-      TicketNumber.counter2Queue.add(counter2Basis);
-      counter2Basis++;
-      invokeBasis = 1;
+      TicketNumber.counter1Queue.add(counter1Basis);
+      Counter1.transactionData.add(requestCopy);
+      Counter1.certificateData.add(cenomarCert);
+      counter1Basis++;
+      invokeBasis = 0;
       //this.setVisible(false);
       new TicketNumber().setVisible(true);
        Component[] components = transactionPanel.getComponents();
@@ -280,13 +403,137 @@ public class Customer extends javax.swing.JFrame {
         }
         transactionPanel.setVisible(true);
         
-        documentPanel.setVisible(false);
-        Component[] components1 = documentPanel.getComponents();
+        documentCopyPanel.setVisible(false);
+        Component[] components1 = documentCopyPanel.getComponents();
          for (Component component : components1) {
             component.setVisible(false);
         }
           
     }//GEN-LAST:event_cenomarCertButtonActionPerformed
+
+    private void cenomarAmendmentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cenomarAmendmentButtonActionPerformed
+         TicketNumber.counter1Queue.add(counter1Basis);
+        Counter1.transactionData.add(amendment);
+        Counter1.certificateData.add(cenomarCert);
+        
+        counter1Basis ++;
+        invokeBasis = 0;
+      //this.setVisible(false);
+       new TicketNumber().setVisible(true);
+       Component[] components = transactionPanel.getComponents();
+        for (Component component : components) {
+            component.setVisible(true);
+        }
+        transactionPanel.setVisible(true);
+        
+        documentCopyPanel.setVisible(false);
+        Component[] components1 = documentCopyPanel.getComponents();
+         for (Component component : components1) {
+            component.setVisible(false);
+        }
+        Component[] components3 = amendmentPanel.getComponents();
+         for (Component component3 : components3) {
+            component3.setVisible(false);
+        }
+    }//GEN-LAST:event_cenomarAmendmentButtonActionPerformed
+
+    private void marriageAmendmentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_marriageAmendmentButtonActionPerformed
+        TicketNumber.counter1Queue.add(counter1Basis);
+        Counter1.transactionData.add(amendment);
+        Counter1.certificateData.add(marriageCert);
+        
+        counter1Basis ++;
+        invokeBasis = 0;
+      //this.setVisible(false);
+       new TicketNumber().setVisible(true);
+       Component[] components = transactionPanel.getComponents();
+        for (Component component : components) {
+            component.setVisible(true);
+        }
+        transactionPanel.setVisible(true);
+        
+        documentCopyPanel.setVisible(false);
+        Component[] components1 = documentCopyPanel.getComponents();
+         for (Component component : components1) {
+            component.setVisible(false);
+        }
+        Component[] components3 = amendmentPanel.getComponents();
+         for (Component component3 : components3) {
+            component3.setVisible(false);
+        }
+    }//GEN-LAST:event_marriageAmendmentButtonActionPerformed
+
+    private void backButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButton2ActionPerformed
+        documentCopyPanel.setVisible(false);
+        Component[] components1 = documentCopyPanel.getComponents();
+         for (Component component : components1) {
+            component.setVisible(false);
+        }
+         
+        Component[] components2 = amendmentPanel.getComponents();
+         for (Component component2 : components2) {
+            component2.setVisible(false);
+        }
+        amendmentPanel.setVisible(false);
+         Component[] components = transactionPanel.getComponents();
+        for (Component component : components) {
+            component.setVisible(true);
+        }
+        transactionPanel.setVisible(true);
+    }//GEN-LAST:event_backButton2ActionPerformed
+
+    private void birthAmendmentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_birthAmendmentButtonActionPerformed
+         
+        TicketNumber.counter1Queue.add(counter1Basis);
+        Counter1.transactionData.add(amendment);
+        Counter1.certificateData.add(birthCert);
+        
+        counter1Basis ++;
+        invokeBasis = 0;
+      //this.setVisible(false);
+       new TicketNumber().setVisible(true);
+       Component[] components = transactionPanel.getComponents();
+        for (Component component : components) {
+            component.setVisible(true);
+        }
+        transactionPanel.setVisible(true);
+        
+        documentCopyPanel.setVisible(false);
+        Component[] components1 = documentCopyPanel.getComponents();
+         for (Component component : components1) {
+            component.setVisible(false);
+        }
+        Component[] components3 = amendmentPanel.getComponents();
+         for (Component component3 : components3) {
+            component3.setVisible(false);
+        }
+    }//GEN-LAST:event_birthAmendmentButtonActionPerformed
+
+    private void deathAmendmentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deathAmendmentButtonActionPerformed
+        TicketNumber.counter1Queue.add(counter1Basis);
+        Counter1.transactionData.add(amendment);
+        Counter1.certificateData.add(deathCert);
+        
+        counter1Basis ++;
+        invokeBasis = 0;
+      //this.setVisible(false);
+       new TicketNumber().setVisible(true);
+       Component[] components = transactionPanel.getComponents();
+        for (Component component : components) {
+            component.setVisible(true);
+        }
+        transactionPanel.setVisible(true);
+        
+        documentCopyPanel.setVisible(false);
+        Component[] components1 = documentCopyPanel.getComponents();
+         for (Component component : components1) {
+            component.setVisible(false);
+        }
+        Component[] components3 = amendmentPanel.getComponents();
+         for (Component component3 : components3) {
+            component3.setVisible(false);
+        }
+    }//GEN-LAST:event_deathAmendmentButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -324,15 +571,22 @@ public class Customer extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel amendmentPanel;
     protected static javax.swing.JButton amendmentsButton;
     private javax.swing.JButton backButton;
+    private javax.swing.JButton backButton2;
+    private javax.swing.JButton birthAmendmentButton;
     public static javax.swing.JButton birthCertButton;
+    private javax.swing.JButton cenomarAmendmentButton;
     public static javax.swing.JButton cenomarCertButton;
+    private javax.swing.JLabel correctionLabel;
+    private javax.swing.JButton deathAmendmentButton;
     public static javax.swing.JButton deathCertButton;
-    private javax.swing.JPanel documentPanel;
+    private javax.swing.JPanel documentCopyPanel;
     private javax.swing.JButton getCopyButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton marriageAmendmentButton;
     public static javax.swing.JButton marriageCertButton;
     private javax.swing.JPanel transactionPanel;
     // End of variables declaration//GEN-END:variables
